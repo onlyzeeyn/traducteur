@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Traducteur Anglais - Français</title>
+</head>
+
+<body>
+
+<h1>Traducteur Anglais - Français</h1>
+
+<?php if ($result === null && $error === null): ?>
+    <!-- Formulaire -->
+    <form action="" method="POST">
+
+        <label>Mot :</label>
+        <input type="text" name="word" value="" />
+
+        <br><br>
+
+        <label>Traduction :</label>
+        <select name="direction">
+            <option value="">-- Choisir --</option>
+            <option value="toEnglish">Français → Anglais</option>
+            <option value="toFrench">Anglais → Français</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Traduire</button>
+
+    </form>
+
+<?php else: ?>
+
+    <?php if ($error): ?>
+        <p style="color:red;">
+            <?= $error ?>
+        </p>
+    <?php else: ?>
+        <?php if ($result === "unknown"): ?>
+            <p>Mot inconnu !</p>
+            <p>Mots disponibles :</p>
+            <ul>
+                <?php foreach ($knownWords as $w): ?>
+                    <li><?= $w ?></li>
+                <?php endforeach ?>
+            </ul>
+        <?php else: ?>
+            <p><strong>Résultat :</strong> <?= htmlspecialchars($result) ?></p>
+        <?php endif ?>
+    <?php endif ?>
+
+    <hr>
+
+    <h2>Dictionnaire complet</h2>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Français</th>
+            <th>Anglais</th>
+        </tr>
+        <?php foreach ($dictionary as $fr => $en): ?>
+            <tr>
+                <td><?= $fr ?></td>
+                <td><?= $en ?></td>
+            </tr>
+        <?php endforeach ?>
+    </table>
+
+    <br><a href="index.php">↩ Retour</a>
+
+<?php endif ?>
+
+</body>
+</html>
